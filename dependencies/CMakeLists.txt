@@ -5,6 +5,7 @@ add_subdirectory(glew)
 add_subdirectory(stb)
 add_subdirectory(glm)
 add_subdirectory(zstd)
+add_subdirectory(random123)
 add_subdirectory(freetype)
 add_subdirectory(DataContainerGenerator)
 

@@ -1,7 +1,7 @@
 #include "prng.hpp"
 #include "system_state.hpp"
 
-#include "random123/philox.h"
+#include "Random123/philox.h"
 
 namespace rng {
 

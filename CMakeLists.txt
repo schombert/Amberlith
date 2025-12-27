@@ -185,6 +185,7 @@ else() # GCC or CLANG
 	target_link_libraries(MainCommon INTERFACE dl)
 endif()
 target_link_libraries(MainCommon INTERFACE dependency_DataContainer)
+target_link_libraries(MainCommon INTERFACE dependency_random123)
 target_link_libraries(MainCommon INTERFACE dependency_zstd)
 target_link_libraries(MainCommon INTERFACE dependency_stb)
 target_link_libraries(MainCommon INTERFACE libglew_static)
