@@ -359,7 +359,7 @@ void initialize_msaa(sys::state& state, int32_t size_x, int32_t size_y) {
 	glRenderbufferStorageMultisample(GL_RENDERBUFFER, GLsizei(antialias_level), GL_DEPTH24_STENCIL8, size_x, size_y);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, state.open_gl.msaa_rbo);
-	if(auto r = glCheckFramebufferStatus(GL_FRAMEBUFFER); r != GL_FRAMEBUFFER_COMPLETE) {
+	if(auto const r = glCheckFramebufferStatus(GL_FRAMEBUFFER); r != GL_FRAMEBUFFER_COMPLETE) {
 		state.open_gl.msaa_enabled = false;
 		return;
 	}
@@ -373,14 +373,14 @@ void initialize_msaa(sys::state& state, int32_t size_x, int32_t size_y) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, state.open_gl.msaa_texture, 0);	// we only need a color buffer
-	if(auto r = glCheckFramebufferStatus(GL_FRAMEBUFFER); r != GL_FRAMEBUFFER_COMPLETE) {
+	if(auto const r = glCheckFramebufferStatus(GL_FRAMEBUFFER); r != GL_FRAMEBUFFER_COMPLETE) {
 		notify_user_of_fatal_opengl_error("MSAA post processing framebuffer wasn't completed: " + std::string(framebuffer_error(r)));
 	}
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	auto root = get_root(state.common_fs);
-	auto msaa_fshader = open_file(root, NATIVE("assets/shaders/glsl/msaa_f_shader.glsl"));
-	auto msaa_vshader = open_file(root, NATIVE("assets/shaders/glsl/msaa_v_shader.glsl"));
+	auto msaa_fshader = open_file(root, NATIVE("assets/shaders/msaa_f_shader.glsl"));
+	auto msaa_vshader = open_file(root, NATIVE("assets/shaders/msaa_v_shader.glsl"));
 	if(bool(msaa_fshader) && bool(msaa_vshader)) {
 		auto vertex_content = view_contents(*msaa_vshader);
 		auto fragment_content = view_contents(*msaa_fshader);
@@ -509,8 +509,8 @@ static const GLfloat global_rtl_square_left_flipped_data[] = {
 
 void load_shaders(sys::state& state) {
 	auto root = get_root(state.common_fs);
-	auto ui_fshader = open_file(root, NATIVE("assets/shaders/glsl/ui_f_shader.glsl"));
-	auto ui_vshader = open_file(root, NATIVE("assets/shaders/glsl/ui_v_shader.glsl"));
+	auto ui_fshader = open_file(root, NATIVE("assets/shaders/ui_f_shader.glsl"));
+	auto ui_vshader = open_file(root, NATIVE("assets/shaders/ui_v_shader.glsl"));
 	if(bool(ui_fshader) && bool(ui_vshader)) {
 		auto vertex_content = view_contents(*ui_vshader);
 		auto fragment_content = view_contents(*ui_fshader);

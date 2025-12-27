@@ -238,6 +238,7 @@ public:
 		other.dat_texture = 0;
 		dat_buffer = other.dat_buffer;
 		other.dat_buffer = 0;
+		return *this;
 	}
 	~bezier_path();
 	void update_vbo();
