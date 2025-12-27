@@ -14,4 +14,4 @@ native_string to_native_string(T&& v) noexcept {
 #define NATIVE_M(X) NATIVE(X)
 #define NATIVE_DIR_SEPARATOR '/'
 #define NATIVE_DIR_SEPARATORS "/"
-#define NATIVE_PROGRAM_NAME "BlankProject"
+#define NATIVE_PROGRAM_NAME "Amberlith"
