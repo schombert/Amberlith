@@ -1,3 +1,4 @@
+#include "constants.hpp"
 #include "window.hpp"
 //#include "map.hpp"
 #include "user_interactions.hpp"
@@ -14,62 +15,137 @@ int32_t double_click_ms() {
 	return 500;
 }
 
-static const std::unordered_map<int, sys::virtual_key> glfw_key_to_virtual_key = {{GLFW_KEY_UNKNOWN, sys::virtual_key::NONE},
-		{GLFW_KEY_SPACE, sys::virtual_key::SPACE}, {GLFW_KEY_APOSTROPHE, sys::virtual_key::QUOTE},
-		{GLFW_KEY_COMMA, sys::virtual_key::COMMA}, {GLFW_KEY_EQUAL, sys::virtual_key::PLUS},
-		{GLFW_KEY_MINUS, sys::virtual_key::MINUS}, {GLFW_KEY_PERIOD, sys::virtual_key::PERIOD},
-		{GLFW_KEY_SLASH, sys::virtual_key::FORWARD_SLASH}, {GLFW_KEY_0, sys::virtual_key::NUM_0},
-		{GLFW_KEY_1, sys::virtual_key::NUM_1}, {GLFW_KEY_2, sys::virtual_key::NUM_2}, {GLFW_KEY_3, sys::virtual_key::NUM_3},
-		{GLFW_KEY_4, sys::virtual_key::NUM_4}, {GLFW_KEY_5, sys::virtual_key::NUM_5}, {GLFW_KEY_6, sys::virtual_key::NUM_6},
-		{GLFW_KEY_7, sys::virtual_key::NUM_7}, {GLFW_KEY_8, sys::virtual_key::NUM_8}, {GLFW_KEY_9, sys::virtual_key::NUM_9},
-		{GLFW_KEY_SEMICOLON, sys::virtual_key::SEMICOLON}, {GLFW_KEY_EQUAL, sys::virtual_key::OEM_NEC_EQUAL},
-		{GLFW_KEY_A, sys::virtual_key::A}, {GLFW_KEY_B, sys::virtual_key::B}, {GLFW_KEY_C, sys::virtual_key::C},
-		{GLFW_KEY_D, sys::virtual_key::D}, {GLFW_KEY_E, sys::virtual_key::E}, {GLFW_KEY_F, sys::virtual_key::F},
-		{GLFW_KEY_G, sys::virtual_key::G}, {GLFW_KEY_H, sys::virtual_key::H}, {GLFW_KEY_I, sys::virtual_key::I},
-		{GLFW_KEY_J, sys::virtual_key::J}, {GLFW_KEY_K, sys::virtual_key::K}, {GLFW_KEY_L, sys::virtual_key::L},
-		{GLFW_KEY_M, sys::virtual_key::M}, {GLFW_KEY_N, sys::virtual_key::N}, {GLFW_KEY_O, sys::virtual_key::O},
-		{GLFW_KEY_P, sys::virtual_key::P}, {GLFW_KEY_Q, sys::virtual_key::Q}, {GLFW_KEY_R, sys::virtual_key::R},
-		{GLFW_KEY_S, sys::virtual_key::S}, {GLFW_KEY_T, sys::virtual_key::T}, {GLFW_KEY_U, sys::virtual_key::U},
-		{GLFW_KEY_V, sys::virtual_key::V}, {GLFW_KEY_W, sys::virtual_key::W}, {GLFW_KEY_X, sys::virtual_key::X},
-		{GLFW_KEY_Y, sys::virtual_key::Y}, {GLFW_KEY_Z, sys::virtual_key::Z}, {GLFW_KEY_LEFT_BRACKET, sys::virtual_key::OPEN_BRACKET},
-		{GLFW_KEY_BACKSLASH, sys::virtual_key::BACK_SLASH}, {GLFW_KEY_RIGHT_BRACKET, sys::virtual_key::CLOSED_BRACKET},
-		{GLFW_KEY_GRAVE_ACCENT, sys::virtual_key::TILDA}, {GLFW_KEY_WORLD_1, sys::virtual_key::NONE},
-		{GLFW_KEY_WORLD_2, sys::virtual_key::NONE}, {GLFW_KEY_ESCAPE, sys::virtual_key::ESCAPE},
-		{GLFW_KEY_ENTER, sys::virtual_key::RETURN}, {GLFW_KEY_TAB, sys::virtual_key::TAB},
-		{GLFW_KEY_BACKSPACE, sys::virtual_key::BACK}, {GLFW_KEY_INSERT, sys::virtual_key::INSERT},
-		{GLFW_KEY_DELETE, sys::virtual_key::DELETE_KEY}, {GLFW_KEY_RIGHT, sys::virtual_key::RIGHT},
-		{GLFW_KEY_LEFT, sys::virtual_key::LEFT}, {GLFW_KEY_DOWN, sys::virtual_key::DOWN}, {GLFW_KEY_UP, sys::virtual_key::UP},
-		{GLFW_KEY_PAGE_UP, sys::virtual_key::PRIOR}, {GLFW_KEY_PAGE_DOWN, sys::virtual_key::NEXT},
-		{GLFW_KEY_HOME, sys::virtual_key::HOME}, {GLFW_KEY_END, sys::virtual_key::END},
-		{GLFW_KEY_CAPS_LOCK, sys::virtual_key::CAPITAL}, {GLFW_KEY_SCROLL_LOCK, sys::virtual_key::SCROLL},
-		{GLFW_KEY_NUM_LOCK, sys::virtual_key::NUMLOCK}, {GLFW_KEY_PRINT_SCREEN, sys::virtual_key::PRINT},
-		{GLFW_KEY_PAUSE, sys::virtual_key::PAUSE}, {GLFW_KEY_F1, sys::virtual_key::F1}, {GLFW_KEY_F2, sys::virtual_key::F2},
-		{GLFW_KEY_F3, sys::virtual_key::F3}, {GLFW_KEY_F4, sys::virtual_key::F4}, {GLFW_KEY_F5, sys::virtual_key::F5},
-		{GLFW_KEY_F6, sys::virtual_key::F6}, {GLFW_KEY_F7, sys::virtual_key::F7}, {GLFW_KEY_F8, sys::virtual_key::F8},
-		{GLFW_KEY_F9, sys::virtual_key::F9}, {GLFW_KEY_F10, sys::virtual_key::F10}, {GLFW_KEY_F11, sys::virtual_key::F11},
-		{GLFW_KEY_F12, sys::virtual_key::F12}, {GLFW_KEY_F13, sys::virtual_key::F13}, {GLFW_KEY_F14, sys::virtual_key::F14},
-		{GLFW_KEY_F15, sys::virtual_key::F15}, {GLFW_KEY_F16, sys::virtual_key::F16}, {GLFW_KEY_F17, sys::virtual_key::F17},
-		{GLFW_KEY_F18, sys::virtual_key::F18}, {GLFW_KEY_F19, sys::virtual_key::F19}, {GLFW_KEY_F20, sys::virtual_key::F20},
-		{GLFW_KEY_F21, sys::virtual_key::F21}, {GLFW_KEY_F22, sys::virtual_key::F22}, {GLFW_KEY_F23, sys::virtual_key::F23},
-		{GLFW_KEY_F24, sys::virtual_key::F24}, {GLFW_KEY_F25, sys::virtual_key::NONE}, {GLFW_KEY_KP_0, sys::virtual_key::NUMPAD0},
-		{GLFW_KEY_KP_1, sys::virtual_key::NUMPAD1}, {GLFW_KEY_KP_2, sys::virtual_key::NUMPAD2},
-		{GLFW_KEY_KP_3, sys::virtual_key::NUMPAD3}, {GLFW_KEY_KP_4, sys::virtual_key::NUMPAD4},
-		{GLFW_KEY_KP_5, sys::virtual_key::NUMPAD5}, {GLFW_KEY_KP_6, sys::virtual_key::NUMPAD6},
-		{GLFW_KEY_KP_7, sys::virtual_key::NUMPAD7}, {GLFW_KEY_KP_8, sys::virtual_key::NUMPAD8},
-		{GLFW_KEY_KP_9, sys::virtual_key::NUMPAD9}, {GLFW_KEY_KP_DECIMAL, sys::virtual_key::DECIMAL},
-		{GLFW_KEY_KP_DIVIDE, sys::virtual_key::DIVIDE}, {GLFW_KEY_KP_MULTIPLY, sys::virtual_key::MULTIPLY},
-		{GLFW_KEY_KP_SUBTRACT, sys::virtual_key::SUBTRACT}, {GLFW_KEY_KP_ADD, sys::virtual_key::ADD},
-		{GLFW_KEY_KP_ENTER, sys::virtual_key::RETURN}, {GLFW_KEY_LEFT_SHIFT, sys::virtual_key::LSHIFT},
-		{GLFW_KEY_LEFT_CONTROL, sys::virtual_key::LCONTROL}, {GLFW_KEY_LEFT_ALT, sys::virtual_key::LMENU},
-		{GLFW_KEY_LEFT_SUPER, sys::virtual_key::LWIN}, {GLFW_KEY_RIGHT_SHIFT, sys::virtual_key::RSHIFT},
-		{GLFW_KEY_RIGHT_CONTROL, sys::virtual_key::RCONTROL}, {GLFW_KEY_RIGHT_ALT, sys::virtual_key::RMENU},
-		{GLFW_KEY_RIGHT_SUPER, sys::virtual_key::RWIN}, {GLFW_KEY_MENU, sys::virtual_key::MENU}};
+static sys::virtual_key glfw_key_to_virtual_key(int key) {
+	switch (key) {
+	case GLFW_KEY_SPACE: return sys::virtual_key::SPACE;
+	case GLFW_KEY_APOSTROPHE: return sys::virtual_key::QUOTE;
+	case GLFW_KEY_COMMA: return sys::virtual_key::COMMA;
+	case GLFW_KEY_EQUAL: return sys::virtual_key::PLUS;
+	case GLFW_KEY_MINUS: return sys::virtual_key::MINUS;
+	case GLFW_KEY_PERIOD: return sys::virtual_key::PERIOD;
+	case GLFW_KEY_SLASH: return sys::virtual_key::FORWARD_SLASH;
+	case GLFW_KEY_0: return sys::virtual_key::NUM_0;
+	case GLFW_KEY_1: return sys::virtual_key::NUM_1;
+	case GLFW_KEY_2: return sys::virtual_key::NUM_2;
+	case GLFW_KEY_3: return sys::virtual_key::NUM_3;
+	case GLFW_KEY_4: return sys::virtual_key::NUM_4;
+	case GLFW_KEY_5: return sys::virtual_key::NUM_5;
+	case GLFW_KEY_6: return sys::virtual_key::NUM_6;
+	case GLFW_KEY_7: return sys::virtual_key::NUM_7;
+	case GLFW_KEY_8: return sys::virtual_key::NUM_8;
+	case GLFW_KEY_9: return sys::virtual_key::NUM_9;
+	case GLFW_KEY_SEMICOLON: return sys::virtual_key::SEMICOLON;
+	//case GLFW_KEY_EQUAL: return sys::virtual_key::OEM_NEC_EQUAL;
+	case GLFW_KEY_A: return sys::virtual_key::A;
+	case GLFW_KEY_B: return sys::virtual_key::B;
+	case GLFW_KEY_C: return sys::virtual_key::C;
+	case GLFW_KEY_D: return sys::virtual_key::D;
+	case GLFW_KEY_E: return sys::virtual_key::E;
+	case GLFW_KEY_F: return sys::virtual_key::F;
+	case GLFW_KEY_G: return sys::virtual_key::G;
+	case GLFW_KEY_H: return sys::virtual_key::H;
+	case GLFW_KEY_I: return sys::virtual_key::I;
+	case GLFW_KEY_J: return sys::virtual_key::J;
+	case GLFW_KEY_K: return sys::virtual_key::K;
+	case GLFW_KEY_L: return sys::virtual_key::L;
+	case GLFW_KEY_M: return sys::virtual_key::M;
+	case GLFW_KEY_N: return sys::virtual_key::N;
+	case GLFW_KEY_O: return sys::virtual_key::O;
+	case GLFW_KEY_P: return sys::virtual_key::P;
+	case GLFW_KEY_Q: return sys::virtual_key::Q;
+	case GLFW_KEY_R: return sys::virtual_key::R;
+	case GLFW_KEY_S: return sys::virtual_key::S;
+	case GLFW_KEY_T: return sys::virtual_key::T;
+	case GLFW_KEY_U: return sys::virtual_key::U;
+	case GLFW_KEY_V: return sys::virtual_key::V;
+	case GLFW_KEY_W: return sys::virtual_key::W;
+	case GLFW_KEY_X: return sys::virtual_key::X;
+	case GLFW_KEY_Y: return sys::virtual_key::Y;
+	case GLFW_KEY_Z: return sys::virtual_key::Z;
+	case GLFW_KEY_LEFT_BRACKET: return sys::virtual_key::OPEN_BRACKET;
+	case GLFW_KEY_BACKSLASH: return sys::virtual_key::BACK_SLASH;
+	case GLFW_KEY_RIGHT_BRACKET: return sys::virtual_key::CLOSED_BRACKET;
+	case GLFW_KEY_GRAVE_ACCENT: return sys::virtual_key::TILDA;
+	case GLFW_KEY_WORLD_1: return sys::virtual_key::NONE;
+	case GLFW_KEY_WORLD_2: return sys::virtual_key::NONE;
+	case GLFW_KEY_ESCAPE: return sys::virtual_key::ESCAPE;
+	case GLFW_KEY_ENTER: return sys::virtual_key::RETURN;
+	case GLFW_KEY_TAB: return sys::virtual_key::TAB;
+	case GLFW_KEY_BACKSPACE: return sys::virtual_key::BACK;
+	case GLFW_KEY_INSERT: return sys::virtual_key::INSERT;
+	case GLFW_KEY_DELETE: return sys::virtual_key::DELETE_KEY;
+	case GLFW_KEY_RIGHT: return sys::virtual_key::RIGHT;
+	case GLFW_KEY_LEFT: return sys::virtual_key::LEFT;
+	case GLFW_KEY_DOWN: return sys::virtual_key::DOWN;
+	case GLFW_KEY_UP: return sys::virtual_key::UP;
+	case GLFW_KEY_PAGE_UP: return sys::virtual_key::PRIOR;
+	case GLFW_KEY_PAGE_DOWN: return sys::virtual_key::NEXT;
+	case GLFW_KEY_HOME: return sys::virtual_key::HOME;
+	case GLFW_KEY_END: return sys::virtual_key::END;
+	case GLFW_KEY_CAPS_LOCK: return sys::virtual_key::CAPITAL;
+	case GLFW_KEY_SCROLL_LOCK: return sys::virtual_key::SCROLL;
+	case GLFW_KEY_NUM_LOCK: return sys::virtual_key::NUMLOCK;
+	case GLFW_KEY_PRINT_SCREEN: return sys::virtual_key::PRINT;
+	case GLFW_KEY_PAUSE: return sys::virtual_key::PAUSE;
+	case GLFW_KEY_F1: return sys::virtual_key::F1;
+	case GLFW_KEY_F2: return sys::virtual_key::F2;
+	case GLFW_KEY_F3: return sys::virtual_key::F3;
+	case GLFW_KEY_F4: return sys::virtual_key::F4;
+	case GLFW_KEY_F5: return sys::virtual_key::F5;
+	case GLFW_KEY_F6: return sys::virtual_key::F6;
+	case GLFW_KEY_F7: return sys::virtual_key::F7;
+	case GLFW_KEY_F8: return sys::virtual_key::F8;
+	case GLFW_KEY_F9: return sys::virtual_key::F9;
+	case GLFW_KEY_F10: return sys::virtual_key::F10;
+	case GLFW_KEY_F11: return sys::virtual_key::F11;
+	case GLFW_KEY_F12: return sys::virtual_key::F12;
+	case GLFW_KEY_F13: return sys::virtual_key::F13;
+	case GLFW_KEY_F14: return sys::virtual_key::F14;
+	case GLFW_KEY_F15: return sys::virtual_key::F15;
+	case GLFW_KEY_F16: return sys::virtual_key::F16;
+	case GLFW_KEY_F17: return sys::virtual_key::F17;
+	case GLFW_KEY_F18: return sys::virtual_key::F18;
+	case GLFW_KEY_F19: return sys::virtual_key::F19;
+	case GLFW_KEY_F20: return sys::virtual_key::F20;
+	case GLFW_KEY_F21: return sys::virtual_key::F21;
+	case GLFW_KEY_F22: return sys::virtual_key::F22;
+	case GLFW_KEY_F23: return sys::virtual_key::F23;
+	case GLFW_KEY_F24: return sys::virtual_key::F24;
+	case GLFW_KEY_F25: return sys::virtual_key::NONE;
+	case GLFW_KEY_KP_0: return sys::virtual_key::NUMPAD0;
+	case GLFW_KEY_KP_1: return sys::virtual_key::NUMPAD1;
+	case GLFW_KEY_KP_2: return sys::virtual_key::NUMPAD2;
+	case GLFW_KEY_KP_3: return sys::virtual_key::NUMPAD3;
+	case GLFW_KEY_KP_4: return sys::virtual_key::NUMPAD4;
+	case GLFW_KEY_KP_5: return sys::virtual_key::NUMPAD5;
+	case GLFW_KEY_KP_6: return sys::virtual_key::NUMPAD6;
+	case GLFW_KEY_KP_7: return sys::virtual_key::NUMPAD7;
+	case GLFW_KEY_KP_8: return sys::virtual_key::NUMPAD8;
+	case GLFW_KEY_KP_9: return sys::virtual_key::NUMPAD9;
+	case GLFW_KEY_KP_DECIMAL: return sys::virtual_key::DECIMAL;
+	case GLFW_KEY_KP_DIVIDE: return sys::virtual_key::DIVIDE;
+	case GLFW_KEY_KP_MULTIPLY: return sys::virtual_key::MULTIPLY;
+	case GLFW_KEY_KP_SUBTRACT: return sys::virtual_key::SUBTRACT;
+	case GLFW_KEY_KP_ADD: return sys::virtual_key::ADD;
+	case GLFW_KEY_KP_ENTER: return sys::virtual_key::RETURN;
+	case GLFW_KEY_LEFT_SHIFT: return sys::virtual_key::LSHIFT;
+	case GLFW_KEY_LEFT_CONTROL: return sys::virtual_key::LCONTROL;
+	case GLFW_KEY_LEFT_ALT: return sys::virtual_key::LMENU;
+	case GLFW_KEY_LEFT_SUPER: return sys::virtual_key::LWIN;
+	case GLFW_KEY_RIGHT_SHIFT: return sys::virtual_key::RSHIFT;
+	case GLFW_KEY_RIGHT_CONTROL: return sys::virtual_key::RCONTROL;
+	case GLFW_KEY_RIGHT_ALT: return sys::virtual_key::RMENU;
+	case GLFW_KEY_RIGHT_SUPER: return sys::virtual_key::RWIN;
+	case GLFW_KEY_MENU: return sys::virtual_key::MENU;
+	case GLFW_KEY_UNKNOWN:
+	default: return sys::virtual_key::NONE;
+	}
+}
 
 bool is_key_depressed(sys::state const& game_state, sys::virtual_key key) {
-	for(auto it = glfw_key_to_virtual_key.begin(); it != glfw_key_to_virtual_key.end(); ++it)
-		if(it->second == key)
-			return glfwGetKey(game_state.win_ptr->window, it->first) == GLFW_PRESS;
-
+	for (unsigned char ch = GLFW_KEY_SPACE; ch < 0xFF; ++ch)
+		if (glfw_key_to_virtual_key(ch) == key)
+			return glfwGetKey(game_state.win_ptr->window, ch) == GLFW_PRESS;
 	return false;
 }
 
@@ -138,7 +214,7 @@ static void glfw_error_callback(int error, char const* description) {
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	sys::state* state = (sys::state*)glfwGetWindowUserPointer(window);
 
-	sys::virtual_key virtual_key = glfw_key_to_virtual_key.at(key);
+	sys::virtual_key virtual_key = glfw_key_to_virtual_key(key);
 	switch(action) {
 	case GLFW_PRESS:
 		state->on_key_down(virtual_key, get_current_modifiers(mods));
