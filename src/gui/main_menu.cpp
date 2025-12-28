@@ -427,6 +427,10 @@ void main_menu_base_exit_t::on_update(sys::state& state) noexcept {
 bool main_menu_base_exit_t::button_action(sys::state& state) noexcept {
 	main_menu_base_t& base = *((main_menu_base_t*)(parent)); 
 // BEGIN base::exit::lbutton_action
+	if(state.user_setting_changed)
+		state.save_user_settings();
+	state.user_setting_changed = false;
+	window::close_window(state);
 // END
 	return true;
 }
