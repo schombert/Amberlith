@@ -6,6 +6,7 @@
 namespace game_scene {
 
 void in_game_hotkeys(sys::state& state, sys::virtual_key keycode, sys::key_modifiers mod);
+void do_nothing_hotkeys(sys::state& state, sys::virtual_key keycode, sys::key_modifiers mod);
 
 sys::virtual_key replace_keycodes_identity(sys::state& state, sys::virtual_key keycode, sys::key_modifiers mod) {
 	return keycode;
@@ -14,7 +15,25 @@ sys::virtual_key replace_keycodes_identity(sys::state& state, sys::virtual_key k
 
 void switch_scene(sys::state& state, scene_id ui_scene) {
 	switch(ui_scene) {
-		case scene_id::in_game_basic:
+	case scene_id::loading:
+	{
+		state.current_scene = scene_properties{
+			.id = scene_id::loading,
+
+			.get_root = [](sys::state& state) { return state.ui_state.root.get(); },
+			.allow_drag_selection = false,
+			.on_drag_start = do_nothing_screen,
+			.drag_selection = do_nothing_screen,
+			.lbutton_up = do_nothing,
+			.keycode_mapping = replace_keycodes_identity,
+			.handle_hotkeys = do_nothing_hotkeys,
+			.render_screen = do_nothing,
+			.recalculate_mouse_probe = recalculate_mouse_probe_identity,
+			.recalculate_tooltip_probe = recalculate_mouse_probe_identity,
+			.on_game_state_update = do_nothing,
+		};
+	} break;
+	case scene_id::in_game_basic:
 	{
 		state.current_scene = scene_properties{
 			.id = scene_id::in_game_basic,
@@ -32,6 +51,11 @@ void switch_scene(sys::state& state, scene_id ui_scene) {
 			.on_game_state_update = do_nothing,
 		};
 		// move scene ui windows to front here
+
+		{
+			auto ptr = alice_ui::display_at_front<alice_ui::make_tool_pane_main_panel>(state);
+			ptr->base_data.size.y = int16_t(state.ui_state.root->base_data.size.y - ptr->base_data.position.y);
+		}
 	} break;
 	case scene_id::count: // this should never happen
 		assert(false);
