@@ -70,6 +70,9 @@ struct alignas(64) state {
 	game_scene::scene_properties current_scene;
 	component_type active_component_tool = std::monostate{};
 	wire_colors current_wire_color = wire_colors::amber;
+	int32_t x_offset = 0;
+	int32_t y_offset = 0;
+	int32_t zoom = 8;
 
 	simple_fs::file_system common_fs;                                // file system for looking up graphics assets, etc
 	std::unique_ptr<window::window_data_impl> win_ptr = nullptr;     // platform-dependent window information

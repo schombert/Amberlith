@@ -260,7 +260,7 @@ void state::render() { // called to render the frame may (and should) delay retu
 			ui_state.under_mouse->on_hover(*this);
 	}
 
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClearColor(0.1490f, 0.2f, 0.2118f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
